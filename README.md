@@ -6,7 +6,7 @@ By **Chris Wainner**
 
 ## Description
 
-An Android game about a knave tasked with restoring life to the withered forest. Made with LibGDX, Android Studio, and Java.
+An Android game about a young scholar tasked with restoring life to the withered forest. Made with [LibGDX](https://github.com/libgdx/libgdx), Android Studio, and Java.
 
 ## Bugs
 
