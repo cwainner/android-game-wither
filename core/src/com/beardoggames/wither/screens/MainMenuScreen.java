@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.beardoggames.wither.Wither;
+import com.beardoggames.wither.GameMain;
 
 public class MainMenuScreen implements Screen{
-  private final Wither game;
+  private final GameMain game;
 
   private OrthographicCamera camera;
 
-  public MainMenuScreen(final Wither game){
+  public MainMenuScreen(final GameMain game){
     this.game = game;
 
     camera = new OrthographicCamera();
@@ -35,7 +35,7 @@ public class MainMenuScreen implements Screen{
 
     // Begin a new batch to draw
     game.batch.begin();
-    game.font.draw(game.batch, "Welcome to Wither!", 800 / 2, 480 / 2);
+    game.font.draw(game.batch, "Welcome to GameMain!", 800 / 2, 480 / 2);
     game.font.draw(game.batch, "Tap anywhere to begin", 800 / 2, 480 / 2 - 50);
     game.batch.end();
 

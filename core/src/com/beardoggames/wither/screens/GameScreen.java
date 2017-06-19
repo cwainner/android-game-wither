@@ -6,17 +6,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.beardoggames.wither.Wither;
+import com.beardoggames.wither.GameMain;
 
 import static com.badlogic.gdx.Input.*;
 
 public class GameScreen implements Screen{
-  private final Wither game;
+  private final GameMain game;
   private OrthographicCamera camera;
   private Rectangle player;
   private Texture playerSprite;
 
-  public GameScreen(final Wither game){
+  public GameScreen(final GameMain game){
     this.game = game;
 
     // Create Textures

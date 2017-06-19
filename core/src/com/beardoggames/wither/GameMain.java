@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.beardoggames.wither.screens.MainMenuScreen;
 
-public class Wither extends Game {
+public class GameMain extends Game {
 	public SpriteBatch batch;
 	public BitmapFont font;
 
