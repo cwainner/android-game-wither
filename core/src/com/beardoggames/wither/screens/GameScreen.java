@@ -1,13 +1,14 @@
 package com.beardoggames.wither.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.beardoggames.wither.Wither;
+
+import static com.badlogic.gdx.Input.*;
 
 public class GameScreen implements Screen{
   private final Wither game;
@@ -56,10 +57,10 @@ public class GameScreen implements Screen{
     game.batch.end();
 
     // Process user input
-    if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && (player.x > 0)){
+    if(Gdx.input.isKeyPressed(Keys.LEFT) && (player.x > 0)){
       player.x -= 200 * Gdx.graphics.getDeltaTime();
     }
-    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && (player.x < (800 - 64))){
+    if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.x < (800 - 64))){
       player.x += 200 * Gdx.graphics.getDeltaTime();
     }
   }
