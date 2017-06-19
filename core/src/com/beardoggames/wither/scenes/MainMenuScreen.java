@@ -9,7 +9,6 @@ import com.beardoggames.wither.helpers.GameInfo;
 
 public class MainMenuScreen implements Screen{
   private final GameMain game;
-
   private OrthographicCamera camera;
 
   public MainMenuScreen(final GameMain game){
