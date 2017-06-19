@@ -15,20 +15,18 @@ public class GameScreen implements Screen{
   private final GameMain game;
   private OrthographicCamera camera;
   private Player player;
-  private Texture playerSprite;
 
   public GameScreen(final GameMain game){
     this.game = game;
 
     // Create Textures
-    playerSprite = new Texture(Gdx.files.internal("sprites/playerSprite.png"));
 
     // Create the camera
     camera = new OrthographicCamera();
     camera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
 
     // Create a rectangle to represent the player
-    player = new Player(GameInfo.WIDTH / 2 - 64 / 2, 20, 64, 64);
+    player = new Player("sprites/playerSprite.png", GameInfo.WIDTH / 2 - 64 / 2, 20);
   }
 
   @Override
@@ -50,17 +48,17 @@ public class GameScreen implements Screen{
 
     // Begin a new batch
     game.getBatch().begin();
-    game.getBatch().draw(playerSprite, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+    game.getBatch().draw(player, player.getX(), player.getY(), player.getWidth(), player.getHeight());
     game.getBatch().end();
 
     // Process user input
     if(Gdx.input.isKeyPressed(Keys.LEFT) && (player.getX() > 0)){
-      int x = player.getX();
+      float x = player.getX();
       x -= 200 * Gdx.graphics.getDeltaTime();
       player.setX(x);
     }
     if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.getX() < (GameInfo.WIDTH - 64))){
-      int x = player.getX();
+      float x = player.getX();
       x += 200 * Gdx.graphics.getDeltaTime();
       player.setX(x);
     }
@@ -88,6 +86,5 @@ public class GameScreen implements Screen{
 
   @Override
   public void dispose() {
-    playerSprite.dispose();
   }
 }
