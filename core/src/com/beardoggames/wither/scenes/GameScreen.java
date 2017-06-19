@@ -1,37 +1,34 @@
-package com.beardoggames.wither.screens;
+package com.beardoggames.wither.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
 import com.beardoggames.wither.GameMain;
+import com.beardoggames.wither.helpers.GameInfo;
+import com.beardoggames.wither.models.Player;
 
 import static com.badlogic.gdx.Input.*;
 
 public class GameScreen implements Screen{
   private final GameMain game;
   private OrthographicCamera camera;
-  private Rectangle player;
+  private Player player;
   private Texture playerSprite;
 
   public GameScreen(final GameMain game){
     this.game = game;
 
     // Create Textures
-    playerSprite = new Texture(Gdx.files.internal("badlogic.jpg"));
+    playerSprite = new Texture(Gdx.files.internal("sprites/playerSprite.png"));
 
     // Create the camera
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, 800, 480);
+    camera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
 
     // Create a rectangle to represent the player
-    player = new Rectangle();
-    player.x = 800 / 2 - 64 / 2;
-    player.y = 20;
-    player.width = 64;
-    player.height = 64;
+    player = new Player(GameInfo.WIDTH / 2 - 64 / 2, 20, 64, 64);
   }
 
   @Override
@@ -49,19 +46,23 @@ public class GameScreen implements Screen{
     camera.update();
 
     // Tell the SpriteBatch to render in the coord system used by the camera
-    game.batch.setProjectionMatrix(camera.combined);
+    game.getBatch().setProjectionMatrix(camera.combined);
 
     // Begin a new batch
-    game.batch.begin();
-    game.batch.draw(playerSprite, player.x, player.y, player.width, player.height);
-    game.batch.end();
+    game.getBatch().begin();
+    game.getBatch().draw(playerSprite, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+    game.getBatch().end();
 
     // Process user input
-    if(Gdx.input.isKeyPressed(Keys.LEFT) && (player.x > 0)){
-      player.x -= 200 * Gdx.graphics.getDeltaTime();
+    if(Gdx.input.isKeyPressed(Keys.LEFT) && (player.getX() > 0)){
+      int x = player.getX();
+      x -= 200 * Gdx.graphics.getDeltaTime();
+      player.setX(x);
     }
-    if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.x < (800 - 64))){
-      player.x += 200 * Gdx.graphics.getDeltaTime();
+    if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.getX() < (GameInfo.WIDTH - 64))){
+      int x = player.getX();
+      x += 200 * Gdx.graphics.getDeltaTime();
+      player.setX(x);
     }
   }
 

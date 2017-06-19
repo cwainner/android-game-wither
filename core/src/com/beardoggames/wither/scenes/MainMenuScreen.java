@@ -1,10 +1,11 @@
-package com.beardoggames.wither.screens;
+package com.beardoggames.wither.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.beardoggames.wither.GameMain;
+import com.beardoggames.wither.helpers.GameInfo;
 
 public class MainMenuScreen implements Screen{
   private final GameMain game;
@@ -15,7 +16,7 @@ public class MainMenuScreen implements Screen{
     this.game = game;
 
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, 800, 480);
+    camera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
   }
 
   @Override
@@ -31,13 +32,13 @@ public class MainMenuScreen implements Screen{
 
     // Update camera and set game batch to use its coordinate system
     camera.update();
-    game.batch.setProjectionMatrix(camera.combined);
+    game.getBatch().setProjectionMatrix(camera.combined);
 
     // Begin a new batch to draw
-    game.batch.begin();
-    game.font.draw(game.batch, "Welcome to GameMain!", 800 / 2, 480 / 2);
-    game.font.draw(game.batch, "Tap anywhere to begin", 800 / 2, 480 / 2 - 50);
-    game.batch.end();
+    game.getBatch().begin();
+    game.getFont().draw(game.getBatch(), "Welcome to GameMain!", GameInfo.WIDTH / 2, GameInfo.HEIGHT / 2);
+    game.getFont().draw(game.getBatch(), "Tap anywhere to begin", GameInfo.WIDTH / 2, GameInfo.HEIGHT / 2 - 50);
+    game.getBatch().end();
 
     // Process user input
     if(Gdx.input.isTouched()){
