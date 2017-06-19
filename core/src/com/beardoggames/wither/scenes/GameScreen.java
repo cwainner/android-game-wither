@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.beardoggames.wither.GameMain;
 import com.beardoggames.wither.helpers.GameInfo;
@@ -14,9 +15,10 @@ import static com.badlogic.gdx.Input.*;
 
 public class GameScreen implements Screen{
   private final GameMain game;
-  private OrthographicCamera camera;
   private Player player;
   private World world;
+  private OrthographicCamera camera;
+  private Box2DDebugRenderer debugRenderer;
 
   public GameScreen(final GameMain game){
     this.game = game;
@@ -26,12 +28,15 @@ public class GameScreen implements Screen{
     // Create the camera
     camera = new OrthographicCamera();
     camera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
+    camera.position.set(GameInfo.WIDTH / 2f, GameInfo.HEIGHT / 2f, 0);
+
+    debugRenderer = new Box2DDebugRenderer();
 
     // Create the world
-    world = new World(new Vector2(0, -9.8f), true);
+    world = new World(new Vector2(0, -980f), true);
 
     // Create a rectangle to represent the player
-    player = new Player(world, "sprites/playerSprite.png", GameInfo.WIDTH / 2, 100);
+    player = new Player(world, "sprites/playerSprite.png", GameInfo.WIDTH / 2, 150);
   }
 
   @Override
@@ -56,8 +61,10 @@ public class GameScreen implements Screen{
 
     // Begin a new batch
     game.getBatch().begin();
-    game.getBatch().draw(player, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+    game.getBatch().draw(player, player.getX() - player.getWidth() / 2f, player.getY() - player.getHeight() / 2f);
     game.getBatch().end();
+
+    debugRenderer.render(world, camera.combined);
 
     // Set world physics
     world.step(Gdx.graphics.getDeltaTime(), 6, 2);
