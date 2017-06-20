@@ -52,7 +52,7 @@ public class GameScreen implements Screen{
       player.getBody().applyLinearImpulse(new Vector2(0.1f, 0), player.getBody().getWorldCenter(), true);
     }
     if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
-      player.getBody().setLinearVelocity(new Vector2(0, 5f));
+      player.getBody().setLinearVelocity(new Vector2(player.getBody().getLinearVelocity().x, 5f));
     }
   }
 
