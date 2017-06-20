@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.beardoggames.wither.GameMain;
 
 
 public class Ground extends Sprite{
@@ -16,10 +17,11 @@ public class Ground extends Sprite{
   private Body body;
   private Fixture fixture;
 
-  public Ground(World world, String name, float x, float y){
+  public Ground(World world, String name){
     super(new Texture(name));
     this.world = world;
-    super.setPosition(x - getWidth() / 2f, y - getHeight() / 2f);
+    super.setPosition(GameMain.WIDTH / 2, 0);
+    createBody();
   }
 
   private void createBody(){
@@ -40,7 +42,7 @@ public class Ground extends Sprite{
     fixtureDef.shape = shape;
     fixtureDef.density = 1;
 
-    Fixture fixture = body.createFixture(fixtureDef);
+    fixture = body.createFixture(fixtureDef);
 
     shape.dispose();
   }

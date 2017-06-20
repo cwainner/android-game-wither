@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.beardoggames.wither.GameMain;
+import com.beardoggames.wither.models.Ground;
 import com.beardoggames.wither.models.Player;
 
 import static com.badlogic.gdx.Input.*;
@@ -15,6 +16,7 @@ import static com.badlogic.gdx.Input.*;
 public class GameScreen implements Screen{
   private final GameMain game;
   private Player player;
+  private Ground ground;
   private World world;
   private OrthographicCamera camera;
   private Box2DDebugRenderer debugRenderer;
@@ -36,6 +38,7 @@ public class GameScreen implements Screen{
 
     // Create a rectangle to represent the player
     player = new Player(world, "sprites/playerSprite.png", GameMain.WIDTH / 2, 150);
+    ground = new Ground(world, "sprites/ground.png");
   }
 
   @Override
