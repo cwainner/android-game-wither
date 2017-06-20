@@ -40,17 +40,24 @@ public class GameScreen implements Screen{
     world = new World(new Vector2(0, -9.8f), true);
 
     // Create a rectangle to represent the player
-    player = new Player(world, "sprites/playerSprite.png", GameMain.WIDTH / 2, GameMain.HEIGHT / 2 + 200);
+    player = new Player(world, "sprites/playerSprite.png", GameMain.WIDTH / 2, GameMain.HEIGHT / 2);
     ground = new Ground(world, "sprites/ground.png");
   }
 
-  private void update(float dt){
+  private void parseInputs(){
     // Handle inputs
     if(Gdx.input.isKeyPressed(Keys.LEFT)){
       player.getBody().applyLinearImpulse(new Vector2(-0.1f, 0), player.getBody().getWorldCenter(), true);
     } else if(Gdx.input.isKeyPressed(Keys.RIGHT)){
       player.getBody().applyLinearImpulse(new Vector2(0.1f, 0), player.getBody().getWorldCenter(), true);
     }
+    if(Gdx.input.isKeyPressed(Keys.SPACE)){
+      player.getBody().applyLinearImpulse(new Vector2(0, 0.3f), player.getBody().getWorldCenter(), true);
+    }
+  }
+
+  private void update(float dt){
+    parseInputs();
   }
 
   @Override
