@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.beardoggames.wither.scenes.MainMenuScreen;
 
 public class GameMain extends Game {
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 480;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 768;
 	public static final int PPM = 100;
 
 	private SpriteBatch batch;

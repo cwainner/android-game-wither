@@ -51,8 +51,8 @@ public class GameScreen implements Screen{
     } else if(Gdx.input.isKeyPressed(Keys.RIGHT)){
       player.getBody().applyLinearImpulse(new Vector2(0.1f, 0), player.getBody().getWorldCenter(), true);
     }
-    if(Gdx.input.isKeyPressed(Keys.SPACE)){
-      player.getBody().applyLinearImpulse(new Vector2(0, 0.3f), player.getBody().getWorldCenter(), true);
+    if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
+      player.getBody().setLinearVelocity(new Vector2(0, 5f));
     }
   }
 
