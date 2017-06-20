@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.beardoggames.wither.GameMain;
-import com.beardoggames.wither.helpers.GameInfo;
 
 public class MainMenuScreen implements Screen{
   private final GameMain game;
@@ -15,7 +14,7 @@ public class MainMenuScreen implements Screen{
     this.game = game;
 
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
+    camera.setToOrtho(false, GameMain.WIDTH, GameMain.HEIGHT);
   }
 
   @Override
@@ -35,8 +34,8 @@ public class MainMenuScreen implements Screen{
 
     // Begin a new batch to draw
     game.getBatch().begin();
-    game.getFont().draw(game.getBatch(), "Welcome to GameMain!", GameInfo.WIDTH / 2, GameInfo.HEIGHT / 2);
-    game.getFont().draw(game.getBatch(), "Tap anywhere to begin", GameInfo.WIDTH / 2, GameInfo.HEIGHT / 2 - 50);
+    game.getFont().draw(game.getBatch(), "Welcome to GameMain!", GameMain.WIDTH / 2, GameMain.HEIGHT / 2);
+    game.getFont().draw(game.getBatch(), "Tap anywhere to begin", GameMain.WIDTH / 2, GameMain.HEIGHT / 2 - 50);
     game.getBatch().end();
 
     // Process user input

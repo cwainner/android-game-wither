@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.beardoggames.wither.GameMain;
-import com.beardoggames.wither.helpers.GameInfo;
 import com.beardoggames.wither.models.Player;
 
 import static com.badlogic.gdx.Input.*;
@@ -27,8 +26,8 @@ public class GameScreen implements Screen{
 
     // Create the camera
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
-    camera.position.set(GameInfo.WIDTH / 2f, GameInfo.HEIGHT / 2f, 0);
+    camera.setToOrtho(false, GameMain.WIDTH, GameMain.HEIGHT);
+    camera.position.set(GameMain.WIDTH / 2f, GameMain.HEIGHT / 2f, 0);
 
     debugRenderer = new Box2DDebugRenderer();
 
@@ -36,7 +35,7 @@ public class GameScreen implements Screen{
     world = new World(new Vector2(0, -980f), true);
 
     // Create a rectangle to represent the player
-    player = new Player(world, "sprites/playerSprite.png", GameInfo.WIDTH / 2, 150);
+    player = new Player(world, "sprites/playerSprite.png", GameMain.WIDTH / 2, 150);
   }
 
   @Override
@@ -75,7 +74,7 @@ public class GameScreen implements Screen{
       x -= 200 * Gdx.graphics.getDeltaTime();
       player.setX(x);
     }
-    if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.getX() < (GameInfo.WIDTH - 64))){
+    if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.getX() < (GameMain.WIDTH - 64))){
       float x = player.getX();
       x += 200 * Gdx.graphics.getDeltaTime();
       player.setX(x);
