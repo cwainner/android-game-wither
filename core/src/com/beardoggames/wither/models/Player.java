@@ -28,9 +28,9 @@ public class Player extends Sprite{
 
   private void createBody(){
     BodyDef bodyDef = new BodyDef();
-    bodyDef.type = BodyDef.BodyType.KinematicBody;
+    bodyDef.type = BodyDef.BodyType.DynamicBody;
     bodyDef.position.set(getX(), getY());
-
+    bodyDef.fixedRotation = true;
     body = world.createBody(bodyDef);
 
     PolygonShape shape = new PolygonShape();
@@ -39,8 +39,8 @@ public class Player extends Sprite{
     FixtureDef fixtureDef = new FixtureDef();
     fixtureDef.shape = shape;
     fixtureDef.density = 1;
-    fixtureDef.friction = 1f;
     body.createFixture(fixtureDef);
+    body.setUserData("player");
 
     shape.dispose();
   }
