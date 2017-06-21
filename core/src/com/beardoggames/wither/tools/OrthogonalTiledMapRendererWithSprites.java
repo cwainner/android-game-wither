@@ -2,18 +2,16 @@ package com.beardoggames.wither.tools;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.ArrayList;
 
-/**
- * Created by chris on 21/06/17.
- */
-
 public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRenderer {
   private ArrayList<Sprite> sprites;
+  private int drawSpritesAfterLayer = 1;
 
   public OrthogonalTiledMapRendererWithSprites(TiledMap map){
     super(map);
@@ -32,7 +30,15 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
       if(layer instanceof TiledMapTileLayer){
         renderTileLayer((TiledMapTileLayer) layer);
         currentLayer++;
-//        if(currentLayer == draw)
+        if(currentLayer == drawSpritesAfterLayer){
+          for(Sprite sprite : sprites){
+            sprite.draw(this.getBatch());
+          }
+        }
+      } else {
+        for(MapObject object : layer.getObjects()){
+          renderObject(object);
+        }
       }
     }
     endRender();

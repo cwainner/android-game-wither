@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beardoggames.wither.GameMain;
 import com.beardoggames.wither.models.Player;
+import com.beardoggames.wither.tools.OrthogonalTiledMapRendererWithSprites;
 
 import static com.badlogic.gdx.Input.*;
 
@@ -22,7 +23,7 @@ public class GameScreen implements Screen, InputProcessor {
   private OrthographicCamera camera;
   private Viewport viewport;
   private TiledMap tiledMap;
-  private TiledMapRenderer mapRenderer;
+  private OrthogonalTiledMapRendererWithSprites mapRenderer;
 
   public GameScreen(final GameMain game){
     this.game = game;
@@ -32,13 +33,14 @@ public class GameScreen implements Screen, InputProcessor {
     viewport = new FitViewport(GameMain.WIDTH / 2, GameMain.HEIGHT / 2, camera);
 
     tiledMap = new TmxMapLoader().load("maps/map.tmx");
-    mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+    mapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap);
 
     camera.position.set(0, 0, 0);
     Gdx.input.setInputProcessor(this);
 
     // Create the player
     player = new Player("sprites/playerSprite.png", 100, (tiledMap.getProperties().get("height", Integer.class) * tiledMap.getProperties().get("tileheight", Integer.class)) / 2);
+    mapRenderer.addSprite(player);
   }
 
   private void parseInputs(){
@@ -89,7 +91,6 @@ public class GameScreen implements Screen, InputProcessor {
 
     // Begin a new batch
     game.getBatch().begin();
-    game.getBatch().draw(player, (player.getX() - player.getWidth() / 2), (player.getY() - player.getHeight() / 2), player.getWidth(), player.getHeight());
     game.getBatch().end();
   }
 
