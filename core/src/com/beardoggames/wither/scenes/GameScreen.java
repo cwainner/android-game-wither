@@ -29,26 +29,30 @@ public class GameScreen implements Screen, InputProcessor {
 
     // Create the camera
     camera = new OrthographicCamera();
-    viewport = new FitViewport(GameMain.WIDTH / 3, GameMain.HEIGHT / 3, camera);
-    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+    viewport = new FitViewport(GameMain.WIDTH / 2, GameMain.HEIGHT / 2, camera);
+
+    tiledMap = new TmxMapLoader().load("maps/map.tmx");
+    mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
+    camera.position.set(0, 0, 0);
     Gdx.input.setInputProcessor(this);
 
     // Create the player
-    player = new Player("sprites/playerSprite.png", 25, 25);
+    player = new Player("sprites/playerSprite.png", 100, (tiledMap.getProperties().get("height", Integer.class) * tiledMap.getProperties().get("tileheight", Integer.class)) / 2);
   }
 
   private void parseInputs(){
     if(Gdx.input.isKeyPressed(Keys.LEFT) && (player.getX() > 0)){
       float x = player.getX() - 10;
       player.setPosition(x, player.getY());
-    } else if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.getX() < GameMain.WIDTH)){
+    } else if(Gdx.input.isKeyPressed(Keys.RIGHT) && (player.getX() < (tiledMap.getProperties().get("width", Integer.class) * tiledMap.getProperties().get("tilewidth", Integer.class)))){
       float x = player.getX() + 10;
       player.setPosition(x, player.getY());
     }
-    if(Gdx.input.isKeyPressed(Keys.UP)){
+    if(Gdx.input.isKeyPressed(Keys.UP) && (player.getY() < (tiledMap.getProperties().get("height", Integer.class) * tiledMap.getProperties().get("tileheight", Integer.class)))){
       float y = player.getY() + 10;
       player.setPosition(player.getX(), y);
-    } else if(Gdx.input.isKeyPressed(Keys.DOWN)){
+    } else if(Gdx.input.isKeyPressed(Keys.DOWN) && (player.getY() > 0)){
       float y = player.getY() - 10;
       player.setPosition(player.getX(), y);
     }
@@ -60,8 +64,7 @@ public class GameScreen implements Screen, InputProcessor {
 
   @Override
   public void show() {
-    tiledMap = new TmxMapLoader().load("maps/map.tmx");
-    mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+
   }
 
   @Override
@@ -73,6 +76,8 @@ public class GameScreen implements Screen, InputProcessor {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     // Update the camera
+    camera.position.x = player.getX();
+    camera.position.y = player.getY();
     camera.update();
 
     // Update the tiled map
