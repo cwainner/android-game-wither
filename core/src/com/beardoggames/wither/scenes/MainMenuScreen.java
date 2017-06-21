@@ -34,8 +34,9 @@ public class MainMenuScreen implements Screen{
 
     // Begin a new batch to draw
     game.getBatch().begin();
-    game.getFont().draw(game.getBatch(), "Welcome to GameMain!", GameMain.WIDTH / 2, GameMain.HEIGHT / 2);
-    game.getFont().draw(game.getBatch(), "Tap anywhere to begin", GameMain.WIDTH / 2, GameMain.HEIGHT / 2 - 50);
+    game.getFont().draw(game.getBatch(), "Welcome to Wither!", GameMain.WIDTH / 2 - 50, GameMain.HEIGHT / 2);
+    game.getFont().draw(game.getBatch(), "Use the arrow keys to move, and space to interact", GameMain.WIDTH / 2 - 150, GameMain.HEIGHT / 2 - 50);
+    game.getFont().draw(game.getBatch(), "Click anywhere to begin", GameMain.WIDTH / 2 - 50, GameMain.HEIGHT / 2 - 100);
     game.getBatch().end();
 
     // Process user input
