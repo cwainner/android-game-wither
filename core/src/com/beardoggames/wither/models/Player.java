@@ -46,7 +46,7 @@ public class Player extends Sprite{
   }
 
   public void updatePlayer(){
-    setPosition(body.getPosition().x, body.getPosition().y);
+    setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
   }
 
   public int getHealth() {return health;}

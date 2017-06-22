@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beardoggames.wither.GameMain;
 import com.beardoggames.wither.models.Player;
 import com.beardoggames.wither.tools.MapBodyBuilder;
+import com.beardoggames.wither.tools.OrthogonalTiledMapRendererWithSprites;
 
 import static com.badlogic.gdx.Input.*;
 
@@ -27,7 +28,7 @@ public class GameScreen implements Screen, InputProcessor {
   private OrthographicCamera camera;
   private Viewport viewport;
   private TiledMap tiledMap;
-  private OrthogonalTiledMapRenderer mapRenderer;
+  private OrthogonalTiledMapRendererWithSprites mapRenderer;
   private World world;
   private Box2DDebugRenderer debugRenderer;
   private Array<Body> bodies;
@@ -43,7 +44,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     // Create the map
     tiledMap = new TmxMapLoader().load("maps/map.tmx");
-    mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+    mapRenderer = new OrthogonalTiledMapRendererWithSprites(tiledMap);
 
     // Create the camera
     camera = new OrthographicCamera();
@@ -57,6 +58,7 @@ public class GameScreen implements Screen, InputProcessor {
     player = new Player(world, "sprites/playerSprite.png", 100, (tiledMap.getProperties().get("height", Integer.class) * tiledMap.getProperties().get("tileheight", Integer.class)) / 2);
     bodies = MapBodyBuilder.buildShapes(tiledMap, world);
     bodies.add(player.body);
+    mapRenderer.addSprite(player);
     Gdx.input.setInputProcessor(this);
   }
 
@@ -87,18 +89,18 @@ public class GameScreen implements Screen, InputProcessor {
     world.step(Gdx.graphics.getDeltaTime(), 6, 2);
 
     // Render the debug renderer
-    debugRenderer.render(world, camera.combined);
 
     // Update the tiled map and render all Sprites
     mapRenderer.setView(camera);
-//    mapRenderer.render();
+    mapRenderer.render();
+    debugRenderer.render(world, camera.combined);
 
     // Tell the SpriteBatch to render in the coord system used by the camera
     game.getBatch().setProjectionMatrix(camera.combined);
 
     // Begin a new batch
     game.getBatch().begin();
-    game.getBatch().draw(player, player.body.getPosition().x - player.getWidth() / 2, player.body.getPosition().y - player.getHeight() / 2);
+//    game.getBatch().draw(player, player.body.getPosition().x - player.getWidth() / 2, player.body.getPosition().y - player.getHeight() / 2);
     game.getBatch().end();
   }
 
