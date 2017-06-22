@@ -5,9 +5,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -24,6 +27,7 @@ import static com.badlogic.gdx.Input.*;
 
 public class GameScreen implements Screen, InputProcessor {
   private final GameMain game;
+  private TextureAtlas textureAtlas;
   private Player player;
   private OrthographicCamera camera;
   private Viewport viewport;
@@ -35,6 +39,9 @@ public class GameScreen implements Screen, InputProcessor {
 
   public GameScreen(final GameMain game){
     this.game = game;
+
+    // Create atlas
+    textureAtlas = new TextureAtlas("textures/walk_animations.atlas");
 
     // Create world
     world = new World(new Vector2(0, 0), true);
@@ -50,19 +57,18 @@ public class GameScreen implements Screen, InputProcessor {
     camera = new OrthographicCamera();
     viewport = new FitViewport(GameMain.WIDTH / 2, GameMain.HEIGHT / 2, camera);
 
-
-    camera.position.set(0, 0, 0);
     Gdx.input.setInputProcessor(this);
 
     // Create the player
-    player = new Player(world, "sprites/playerSprite.png", 100, (tiledMap.getProperties().get("height", Integer.class) * tiledMap.getProperties().get("tileheight", Integer.class)) / 2);
+    player = new Player(world, this, 100, (tiledMap.getProperties().get("height", Integer.class) * tiledMap.getProperties().get("tileheight", Integer.class)) / 2);
     bodies = MapBodyBuilder.buildShapes(tiledMap, world);
     bodies.add(player.body);
     mapRenderer.addSprite(player);
     Gdx.input.setInputProcessor(this);
   }
 
-  private void update(float dt){
+  public TextureAtlas getAtlas(){
+    return this.textureAtlas;
   }
 
   @Override
@@ -72,9 +78,8 @@ public class GameScreen implements Screen, InputProcessor {
 
   @Override
   public void render(float delta) {
-    update(delta);
 
-    player.updatePlayer();
+    player.updatePlayer(delta);
 
     // Clear the screen
     Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -85,14 +90,13 @@ public class GameScreen implements Screen, InputProcessor {
     camera.position.y = player.getY();
     camera.update();
 
-    //
     world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-
-    // Render the debug renderer
 
     // Update the tiled map and render all Sprites
     mapRenderer.setView(camera);
     mapRenderer.render();
+
+    // Render the debug renderer
     debugRenderer.render(world, camera.combined);
 
     // Tell the SpriteBatch to render in the coord system used by the camera
@@ -100,7 +104,6 @@ public class GameScreen implements Screen, InputProcessor {
 
     // Begin a new batch
     game.getBatch().begin();
-//    game.getBatch().draw(player, player.body.getPosition().x - player.getWidth() / 2, player.body.getPosition().y - player.getHeight() / 2);
     game.getBatch().end();
   }
 

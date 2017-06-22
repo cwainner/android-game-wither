@@ -1,0 +1,41 @@
+
+walk_animations.png
+size: 72,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+a_walk_up
+  rotate: false
+  xy: 0, 2
+  size: 72, 32
+  orig: 72, 32
+  offset: 0, 0
+  index: -1
+b_walk_right
+  rotate: false
+  xy: 0, 34
+  size: 72, 32
+  orig: 72, 32
+  offset: 0, 0
+  index: -1
+c_walk_down
+  rotate: false
+  xy: 0, 66
+  size: 72, 32
+  orig: 72, 32
+  offset: 0, 0
+  index: -1
+d_walk_left
+  rotate: false
+  xy: 0, 98
+  size: 72, 32
+  orig: 72, 32
+  offset: 0, 0
+  index: -1
+e_still
+    rotate: false
+    xy: 0, 64
+    size: 24, 32
+    orig: 24, 32
+    offset: 0, 0
+    index: -1
